@@ -1,8 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./db');
-const authRoutes = require('./routes/authRoutes');
-
 const app = express();
 
 // Middleware
@@ -10,7 +7,13 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', authRoutes);
+// Import the new routes
+const assignDesignUsersRoutes = require('./routes/assignDesignUsersRoutes');
+const changeUserRoleRoutes = require('./routes/changeUserRoleRoutes');
+
+// Use the new routes
+app.use('/api/users', assignDesignUsersRoutes);
+app.use('/api/users', changeUserRoleRoutes);
 
 // Server Port
 const PORT = process.env.PORT || 5000;
